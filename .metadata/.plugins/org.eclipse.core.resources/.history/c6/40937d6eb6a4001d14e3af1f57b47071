@@ -1,0 +1,31 @@
+package backjoon;
+
+import java.util.*;
+
+public class S3_1929 {
+
+	public static int[] solution(int n, int m) {
+		int[] nums = new int[m+1];
+		for(int i=2; i<=m ; i++) {
+			if(nums[i] == 0) {
+				for(int j = i; j<= m; j=j+i) {
+					nums[j] = 1;
+				}
+			}
+		}
+		return nums;
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int m = sc.nextInt();
+		int[] nums = solution(n,m);
+		for(int i = n; i<=m ; i++) {
+			if(nums[i] == 0) System.out.println(i);
+		}
+		System.out.println();
+	}
+
+}
