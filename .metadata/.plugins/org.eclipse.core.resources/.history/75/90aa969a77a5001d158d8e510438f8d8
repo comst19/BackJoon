@@ -1,0 +1,51 @@
+package Silver;
+
+import java.io.*;
+import java.util.*;
+
+public class S3_1058 {
+
+	static int n;
+	static char[][] arr ;
+	static int[][] ch;
+	
+	public static void solution() {
+		int[] fn = new int[n];
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				if(arr[i][j] == 'Y') {
+					if(ch[i][j] == 0) {
+						fn[i]++;
+						ch[i][j] = 1;
+					}
+				}
+				for(int k=0; k<n; k++) {
+					if(arr[j][k] == 'Y' && ch[i][k] == 0 && i !=k) {
+						fn[i]++;
+						ch[i][k] = 1;
+					}
+				}
+			}
+		}
+
+	}
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		n = Integer.parseInt(br.readLine());
+		arr = new char[n][n];
+		ch = new int[n][n];
+		for(int i =0; i<n; i++) {
+			String s = br.readLine();
+			for(int j=0; j <n; j++) {
+				arr[i][j] = s.charAt(i);
+			}
+		}
+		System.out.println(arr[1][1] + arr[2][2]);
+		solution();
+		
+	}
+
+}
