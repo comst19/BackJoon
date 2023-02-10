@@ -1,0 +1,38 @@
+package Silver;
+
+import java.util.*;
+
+public class S2_11053 {
+
+	static int n;
+	static int[] arr, dp;
+	
+	public static int solution() {
+		int answer = Integer.MIN_VALUE;
+		for(int i = 0; i < n; i++) {
+			dp[i] = 1;
+			int max = Integer.MIN_VALUE;
+			for(int j = 0; j < i; j++) {
+				if(arr[i] > arr[j]) {
+					max = Math.max(max, arr[j]);
+				} 
+			}
+			if(max != Integer.MIN_VALUE)dp[i] = max;
+			answer = Math.max(dp[i], answer);
+		}
+		
+		return answer;
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		arr = new int[n];
+		dp = new int[n];
+		for(int i = 0; i < n; i++) arr[i] = sc.nextInt();
+		
+		System.out.println(solution());
+	}
+
+}
