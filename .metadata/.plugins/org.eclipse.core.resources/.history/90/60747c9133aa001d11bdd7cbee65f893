@@ -1,6 +1,6 @@
-package backjoon;
+package Silver;
 
-public class S3_1929 {
+public class S1_1931 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
