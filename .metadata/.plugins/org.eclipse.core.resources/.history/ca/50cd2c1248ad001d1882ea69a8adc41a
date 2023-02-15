@@ -1,0 +1,38 @@
+package Silver;
+
+import java.util.*;
+
+public class S2_1874 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		Stack<Integer> stack = new Stack<>();
+		String answer = "";
+		
+		int cur = 0;
+		int n = sc.nextInt();
+		int[] arr = new int[n];
+		
+		for(int i = 1; i < n; i++) {
+			int num = sc.nextInt();
+			
+			if(num > cur) {
+				for(int j = cur + 1; j <= num; j++) {
+					stack.push(j);
+					answer+="+";
+				}
+				cur = num;
+			}else {
+				if(stack.peek() != num) {
+					System.out.println("NO");
+					System.exit(0);
+				}
+			}
+			stack.pop();
+			answer+="-";
+		}
+		for(char c : answer.toCharArray()) System.out.println(c);
+	}
+
+}
