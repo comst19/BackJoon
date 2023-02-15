@@ -1,0 +1,21 @@
+package Silver;
+
+import java.io.*;
+
+public class S2_1541 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String[] s = br.readLine().split("\\-");
+		
+		for(int i = 0; i < s.length; i++) {
+			int sum = 0;
+			String[] add = s[i].split("\\+");
+			System.out.println(s[i]);
+		}
+
+	}
+
+}

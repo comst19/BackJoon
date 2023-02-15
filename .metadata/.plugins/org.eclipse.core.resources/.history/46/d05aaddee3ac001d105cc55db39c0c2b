@@ -1,0 +1,31 @@
+package Silver;
+
+import java.util.*;
+
+public class S2_16953 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int answer = Integer.MIN_VALUE;
+		int cnt = 0;
+		
+		while(a != b) {
+			if(a > b) {
+				answer = -1;
+				break;
+			}
+			if( b % 10 == 1) b = b / 10;
+			else if(b % 2 == 0) b = b / 2;
+			else {
+				answer = -1;
+			}
+			cnt++;
+		}
+		if(answer == -1) System.out.println(-1);
+		else System.out.println(cnt+1);
+	}
+
+}
