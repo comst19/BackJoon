@@ -1,0 +1,85 @@
+package Gold;
+
+import java.util.*;
+
+class Time implements Comparable<Time>{
+	public int st, et;
+	public Time(int st, int et) {
+		this.st = st;
+		this.et = et;
+	}
+	@Override
+	public int compareTo(Time o) {
+		// TODO Auto-generated method stub
+		if(this.st == o.st) return this.et - o.et; 
+		return this.st - o.st;
+	}
+}
+
+class Seat implements Comparable<Seat>{
+	public int et, ch, num;
+	public Seat(int et, int ch, int num) {
+		this.et = et;
+		this.ch = ch;
+		this.num = num; 
+	}
+	@Override
+	public int compareTo(Seat o) {
+		// TODO Auto-generated method stub
+		if(this.et == o.et) return this.num - o.num;
+		return this.et - o.et;
+	}
+}
+
+public class G3_12764 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		PriorityQueue<Time> times = new PriorityQueue<>();
+		PriorityQueue<Seat> seats = new PriorityQueue<>();
+		
+		for(int i = 0; i < n; i++) {
+			int st = sc.nextInt();
+			int et = sc.nextInt();
+			times.offer(new Time(st,et));
+		}
+		int cnt = 0;
+		while(!times.isEmpty()) {
+			Time t = times.poll();
+			if(seats.isEmpty()) {
+				seats.offer(new Seat(t.et,1,++cnt));
+			}else {
+				ArrayList<Seat> temp = new ArrayList<>();
+				for(int i = 0; i < cnt; i++) {
+					Seat s = seats.poll();
+					if(t.st >= s.et) {
+						s.et = 0;
+					}
+					temp.add(s);
+				}
+				for(Seat s : temp) seats.offer(s);
+				if(seats.peek().et > t.st) {
+					seats.offer(new Seat(t.et,1,++cnt));
+				}else {
+					Seat s = seats.poll();
+					s.et = t.et;
+					s.ch = s.ch + 1;
+					seats.offer(s);
+				}
+				
+			}
+			
+		}
+		
+		System.out.println(cnt);
+		int[] answer = new int[cnt];
+		while(!seats.isEmpty()) {
+			Seat s = seats.poll();
+			answer[s.num-1] = s.ch;
+		}
+		for(int x : answer) System.out.print(x + " ");
+	}
+
+}

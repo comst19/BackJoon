@@ -1,0 +1,86 @@
+package Gold;
+
+import java.util.*;
+import java.io.*;
+
+class Time implements Comparable<Time> {
+    public int st, et;
+    public Time(int st, int et) {
+        this.st = st;
+        this.et = et;
+    }
+    @Override
+    public int compareTo(Time o) {
+        if (this.st == o.st) return this.et - o.et; 
+        return this.st - o.st;
+    }
+}
+
+class Seat implements Comparable<Seat> {
+    public int et, num;
+    public Seat(int et, int num) {
+        this.et = et;
+        this.num = num; 
+    }
+    @Override
+    public int compareTo(Seat o) {
+        if (this.et == o.et) return this.num - o.num;
+        return this.et - o.et;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer sT = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(sT.nextToken());
+
+        Time[] times = new Time[n];
+        for (int i = 0; i < n; i++) {
+            sT = new StringTokenizer(br.readLine());
+            int st = Integer.parseInt(sT.nextToken());
+            int et = Integer.parseInt(sT.nextToken());
+            times[i] = new Time(st,et);
+        }
+
+        Seat[] seats = new Seat[n];
+        int[] ch = new int[n];
+
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            Time t = times[i];
+            if (cnt == 0) {
+                seats[0] = new Seat(t.et, cnt);
+                ch[cnt]++;
+                cnt++;
+            } else {
+                int k = 0;
+                for (int j = 0; j < cnt; j++) {
+                    Seat s = seats[j];
+                    if (t.st >= s.et) {
+                        s.et = 0;
+                    }
+                    seats[k++] = s;
+                }
+
+                Arrays.sort(seats, 0, cnt);
+                if (seats[0].et > t.st) {
+                    seats[cnt] = new Seat(t.et, cnt);
+                    ch[cnt]++;
+                    cnt++;
+                } else {
+                    Seat s = seats[0];
+                    ch[s.num]++;
+                    s.et = t.et;
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(cnt).append("\n");
+        for (int i = 0; i < cnt; i++) {
+            sb.append(ch[i]).append(" ");
+        }
+        System.out.print(sb);
+    }
+}
