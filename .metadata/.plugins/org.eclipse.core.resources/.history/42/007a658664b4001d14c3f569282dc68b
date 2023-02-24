@@ -1,0 +1,33 @@
+package Silver;
+
+import java.util.*;
+
+class Road {
+	int start, end, length;
+	public Road(int start, int end, int length) {
+		this.start = start;
+		this.end = end;
+		this.length = length;
+	}
+}
+
+public class S1_1446 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int d = sc.nextInt();
+		ArrayList<Road> roads = new ArrayList<>();
+		
+		
+		for(int i = 0; i < n; i++) {
+			int s = sc.nextInt();
+			int e = sc.nextInt();
+			int l = sc.nextInt();
+			if(e > d) continue;
+			roads.add(new Road(s,e,l));
+		}
+	}
+
+}
