@@ -1,0 +1,101 @@
+package Gold;
+
+import java.io.*;
+import java.util.*;
+
+class Point{
+	int y,x;
+	public Point(int y, int x) {
+		this.y = y;
+		this.x = x;
+	}
+}
+
+public class G4_14502 {
+
+	static int n, m, answer = Integer.MIN_VALUE;
+	static Queue<Point> q;
+	static int[] dx = {-1,1,0,0};
+	static int[] dy = {0,0,-1,1};
+	static int[][] map, vMap;
+
+	public static void BFS() {
+		
+		vMap = map.clone();
+		
+		while(!q.isEmpty()) {
+			Point cur = q.poll();
+			for(int i = 0; i < 4; i++) {
+				int ny = cur.y + dy[i];
+				int nx = cur.x + dx[i];
+				if(ny >= 0 && ny < n && nx >= 0 && nx < m && vMap[ny][nx] == 0) {
+					vMap[ny][nx] = 2;
+					q.offer(new Point(ny, nx));
+				}
+			}
+		}
+	}
+	
+	public static void Count() {
+		int cnt = 0;
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < m; j++) {
+				if(vMap[i][j] == 0) cnt++;
+			}
+		}
+		answer = Math.max(cnt, answer);
+	}
+	
+	public static void DFS(int wall) {
+		if(wall == 3) {
+			BFS();
+			Count();
+			return;
+		}else {
+			for(int i = 0; i < n; i++) {
+				for(int j = 0; j < m; j++) {
+					if(map[i][j] == 0) {
+						map[i][j] = 1;
+						DFS(wall + 1);
+						map[i][j] = 0;
+					}
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		StringTokenizer st = new StringTokenizer(br.readLine());
+//		
+//		n = Integer.parseInt(st.nextToken());
+//		m = Integer.parseInt(st.nextToken());
+//		
+//		map = new int[n][m];
+//		
+//		q = new LinkedList<>();
+//		
+//		for(int i = 0; i < n; i++) {
+//			st = new StringTokenizer(br.readLine());
+//			for(int j = 0; j < m; j++) {
+//				map[i][j] = Integer.parseInt(st.nextToken());
+//				if(map[i][j] == 2) {
+//					q.offer(new Point(i,j));
+//				}
+//			}
+//		}
+//		
+//		DFS(0);
+//		System.out.println(answer);
+		
+		int[][] a = new int[4][4];
+		int[][] b = a.clone();
+		
+		b[1][1] = 1;
+		b[2][2] = 2;
+		
+		System.out.println(a[1][1] + " " + b[1][1]);
+	}
+
+}
