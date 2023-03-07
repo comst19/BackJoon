@@ -1,0 +1,49 @@
+package Silver;
+
+import java.util.*;
+
+public class S1_9009 {
+
+	static ArrayList<Long> fibo = new ArrayList<>();
+	static ArrayList<Long> answer;
+	static long[] arr;
+	
+	public static void solution(long num) {
+		answer = new ArrayList<>();
+		
+		while(num != 0L) {
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		arr = new long[T];
+		
+		Long max = Long.MIN_VALUE;
+		for(int i = 0; i < T; i++) {
+			arr[i] = sc.nextLong();
+			max = Math.max(arr[i], max);
+		}
+		
+		fibo.add(0L); fibo.add(1L);
+		int idx = 2;
+		while(true) {
+			fibo.add(fibo.get(idx-1) + fibo.get(idx-2));
+			idx++;
+			if(fibo.get(idx) > max) {
+				fibo.remove(idx);
+				break;
+			}
+		}
+		
+		Collections.sort(null);
+		
+		for(int i = 0; i < T; i++) {
+			solution(arr[i]);
+		}
+	}
+
+}

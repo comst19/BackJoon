@@ -1,0 +1,58 @@
+package Silver;
+
+import java.util.*;
+
+public class S1_9009 {
+
+	static ArrayList<Long> fibo = new ArrayList<>();
+	static ArrayList<Long> answer;
+	static long[] arr;
+	
+	public static void solution(long num) {
+		answer = new ArrayList<>();
+		
+		int idx = 0;
+		
+		while(num != 0L) {
+			if(num - fibo.get(idx)>=0) {
+				answer.add(fibo.get(idx));
+				num -= fibo.get(idx);
+			}
+			idx++;
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		arr = new long[T];
+		
+		Long max = Long.MIN_VALUE;
+		for(int i = 0; i < T; i++) {
+			arr[i] = sc.nextLong();
+			max = Math.max(arr[i], max);
+		}
+		
+		fibo.add(0L); fibo.add(1L);
+		int idx = 2;
+		while(true) {
+			fibo.add(fibo.get(idx-1) + fibo.get(idx-2));
+			if(fibo.get(idx) > max) {
+				fibo.remove(idx);
+				break;
+			}
+			idx++;
+		}
+		
+		Collections.sort(fibo, Collections.reverseOrder());
+		
+		for(int i = 0; i < T; i++) {
+			solution(arr[i]);
+			Collections.sort(answer);
+			for(Long fiboNum : answer) System.out.print(fiboNum + " ");
+			System.out.println();
+		}
+	}
+
+}
