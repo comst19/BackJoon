@@ -1,0 +1,43 @@
+package Silver;
+
+import java.io.*;
+import java.util.*;
+
+public class S1_3184 {
+
+	static int r,c;
+	static int cur_s, cur_w, total_s = 0, total_w = 0;
+	static int[] dx = {-1,1,0,0};
+	static int[] dy = {0,0,-1,1};
+	static boolean[][] visited;
+	static char[][] map;
+	
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		r = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
+		
+		map = new char[r][c];
+		for(int i = 0; i < r; i++) {
+			String str = br.readLine();
+			for(int j = 0; j < str.length(); j++) map[i][j] = str.charAt(j);
+		}
+		
+		visited = new boolean[r][c];
+		for(int i = 0; i < r; i++) {
+			for(int j = 0; j < c; j++) {
+				if(map[i][j] == 'v' || map[i][j] == 'o') {
+					if(visited[i][j] == false) {
+						System.out.println("몇 번?");
+					}
+				}
+			}
+		}
+		
+	}
+
+}

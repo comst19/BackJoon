@@ -1,0 +1,62 @@
+package Silver;
+
+import java.io.*;
+import java.util.*;
+
+public class S1_3184 {
+
+	static int r,c;
+	static int cur_s, cur_w, total_s = 0, total_w = 0;
+	static int[] dx = {-1,1,0,0};
+	static int[] dy = {0,0,-1,1};
+	static boolean[][] visited;
+	static char[][] map;
+	
+	static void DFS(int y, int x) {
+		visited[y][x] = true;
+		if(map[y][x] == 'v') cur_w++;
+		if(map[y][x] == 'o') cur_s++;
+		
+		for(int i = 0; i < 4; i++) {
+			int ny = y + dy[i];
+			int nx = x + dx[i];
+			if(ny >= 0 && ny < r && nx >= 0 && nx < c && map[ny][nx] != '#' && visited[ny][nx] == false) {
+				DFS(ny,nx);
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		r = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
+		
+		map = new char[r][c];
+		for(int i = 0; i < r; i++) {
+			String str = br.readLine();
+			for(int j = 0; j < str.length(); j++) map[i][j] = str.charAt(j);
+		}
+		
+		visited = new boolean[r][c];
+		for(int i = 0; i < r; i++) {
+			for(int j = 0; j < c; j++) {
+				if(map[i][j] == 'v' || map[i][j] == 'o') {
+					if(visited[i][j] == false) {
+						cur_s = 0;
+						cur_w = 0;
+						DFS(i,j);
+						
+						if(cur_s > cur_w) total_s += cur_s;
+						else total_w += cur_w;
+					}
+				}
+			}
+		}
+		
+		System.out.println(total_s + " " + total_w);
+	}
+
+}
