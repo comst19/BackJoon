@@ -1,0 +1,53 @@
+package Gold;
+
+import java.io.*;
+import java.util.*;
+
+class Lecture implements Comparable<Lecture>{
+	int st, et;
+	public Lecture(int st, int et) {
+		this.st = st;
+		this.et = et;
+	}
+	@Override
+	public int compareTo(Lecture o) {
+		if(this.st == o.st) return this.et - o.et;
+		return this.st - o.st;
+	}
+}
+
+public class G5_11000 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int n = Integer.parseInt(st.nextToken());
+		
+		PriorityQueue<Lecture> pQ = new PriorityQueue<>();
+		
+		int answer = 0;
+		for(int i = 0; i < n; i++) {
+			st = new StringTokenizer(br.readLine());
+			int start = Integer.parseInt(st.nextToken());
+			int end = Integer.parseInt(st.nextToken());
+			
+			if(pQ.isEmpty()) {
+				pQ.offer(new Lecture(start, end));
+				answer++;
+			}else {
+				if(pQ.peek().et <= start) {
+					pQ.offer(new Lecture(start, end));
+				}else {
+					pQ.offer(new Lecture(start, end));
+					answer++;
+				}
+			}
+		}
+		
+		System.out.println(answer);
+		
+	}
+
+}
