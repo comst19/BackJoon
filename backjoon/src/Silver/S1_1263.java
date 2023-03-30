@@ -1,0 +1,53 @@
+package Silver;
+
+import java.io.*;
+import java.util.*;
+
+class Task implements Comparable<Task>{
+	int t, end;
+	public Task(int t, int end) {
+		this.t = t;
+		this.end = end;
+	}
+	@Override
+	public int compareTo(Task o) {
+		// TODO Auto-generated method stub
+		if(o.end == this.end) return o.t - this.t;
+		return o.end - this.end;
+	}
+}
+
+public class S1_1263 {
+
+	public static void main(String[] args) throws IOException{
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		int n = Integer.parseInt(st.nextToken());
+		Task[] tasks = new Task[n];
+		
+		for(int i = 0; i < n; i++) {
+			st = new StringTokenizer(br.readLine());
+			int t = Integer.parseInt(st.nextToken());
+			int deadline = Integer.parseInt(st.nextToken());
+			tasks[i] = new Task(t, deadline);
+		}
+		
+		Arrays.sort(tasks);
+		
+		boolean flag = true;
+		
+		int start = tasks[0].end - tasks[0].t;
+		for(int i = 1; i < n; i++) {
+			if(tasks[i].end  < start) {
+				start = tasks[i].end;
+			}
+			start -= tasks[i].t;
+		}
+
+		if(start > 0) System.out.println(start);
+		else System.out.println(-1);
+	}
+
+}
